@@ -1,0 +1,32 @@
+/**
+ * 全局鼠标样式
+ * 使用 lib/cursors/ 中的自定义光标文件
+ */
+:root {
+  --cursor-pointer: url(/lib/cursors/15.cur) 0 0, pointer;
+  --cursor-move: url(/lib/cursors/13.cur) 0 0, move;
+  --cursor-not-allowed: url(/lib/cursors/8.cur) 0 0, not-allowed;
+}
+
+html, body {
+  cursor: url(/lib/cursors/1.cur) 0 0, default;
+}
+
+a, button, [role="button"], input[type="submit"], input[type="button"],
+select, .clickable, [onclick], label, summary, .win95-btn,
+.desktop-icon, .ad-bar, .xenon-bottom-nav-item,
+.xenon-mobile-app, .control-btn, .xenon-ctrl-btn {
+  cursor: var(--cursor-pointer);
+}
+
+input, textarea {
+  cursor: url(/lib/cursors/6.cur) 0 0, text;
+}
+
+[cursor="move"], .draggable, .floating-window {
+  cursor: var(--cursor-move);
+}
+
+[disabled], .disabled {
+  cursor: var(--cursor-not-allowed);
+}
