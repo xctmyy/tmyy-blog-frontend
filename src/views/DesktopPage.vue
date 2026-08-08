@@ -15,6 +15,10 @@ import {
   FloatingWindow
 } from '@lib/xenonui_vue_internetoverdose.es.js'
 import zsmImage from '../assets/zsm.png'
+import blogIcon from '../assets/icons/blog.png'
+import githubIcon from '../assets/icons/github.png'
+import jointIcon from '../assets/icons/joint.png'
+import sponsorIcon from '../assets/icons/sponsor.png'
 
 /** 获取横竖屏状态 */
 const isLandscape = useOrientation()
@@ -82,25 +86,31 @@ onUnmounted(() => {
   <div v-if="isLandscape" class="desktop-page">
     <div class="desktop-icons">
       <div class="desktop-icon">
-        <img src="/icons/article.svg" alt="文章" class="desktop-icon-img" />
+        <img :src="blogIcon" alt="文章" class="desktop-icon-img" />
         <span class="desktop-icon-label">文章</span>
       </div>
       <div class="desktop-icon" @click="openGithub">
-        <img src="/icons/github.svg" alt="GitHub" class="desktop-icon-img" />
+        <img :src="githubIcon" alt="GitHub" class="desktop-icon-img" />
         <span class="desktop-icon-label">GitHub</span>
       </div>
       <div class="desktop-icon" @click="openContact">
-        <img src="/icons/contact.svg" alt="联系" class="desktop-icon-img" />
+        <img :src="jointIcon" alt="联系" class="desktop-icon-img" />
         <span class="desktop-icon-label">联系</span>
       </div>
       <div class="desktop-icon" @click="openDonate">
-        <img src="/icons/donate.svg" alt="赞赏" class="desktop-icon-img" />
+        <img :src="sponsorIcon" alt="赞赏" class="desktop-icon-img" />
         <span class="desktop-icon-label">赞赏</span>
       </div>
     </div>
-    <!-- 桌面右侧广告位招租 -->
+    <!-- 桌面右侧广告位招租 - 窗体风格 -->
     <div class="desktop-ad-bar">
-      <span>广告位招租</span>
+      <div class="ad-titlebar">
+        <div class="ad-square"></div>
+        <span class="ad-label">广告位招租</span>
+      </div>
+      <div class="ad-body">
+        <span>广告位招租</span>
+      </div>
     </div>
   </div>
 
@@ -122,15 +132,34 @@ onUnmounted(() => {
     />
 
     <AppPanel title="アプリ" :app-count="4" :columns="4" gap="3vw">
-      <MobileAppIcon icon="/icons/article.svg" name="文章" />
-      <MobileAppIcon icon="/icons/github.svg" name="GitHub" @click="openGithub" />
-      <MobileAppIcon icon="/icons/contact.svg" name="联系" @click="openContact" />
-      <MobileAppIcon icon="/icons/donate.svg" name="赞赏" @click="openDonate" />
+      <MobileAppIcon :icon="blogIcon" name="文章" />
+      <MobileAppIcon :icon="githubIcon" name="GitHub" @click="openGithub" />
+      <MobileAppIcon :icon="jointIcon" name="联系" @click="openContact" />
+      <MobileAppIcon :icon="sponsorIcon" name="赞赏" @click="openDonate" />
     </AppPanel>
 
-    <div class="ad-bar">
-      <span>广告位招租</span>
-    </div>
+    <!-- 手机广告位招租 -->
+    <section class="ad-section" aria-label="广告位">
+      <div class="ad-section-titlebar">
+        <div class="ad-section-titlebar-left">
+          <span class="ad-section-icon" aria-hidden="true"></span>
+          <span class="ad-section-title">广告位招租</span>
+        </div>
+      </div>
+      <div class="ad-section-body">
+        <div class="ad-dot"></div>
+        <span>广告位招租</span>
+        <div class="ad-dot"></div>
+      </div>
+      <div class="ad-section-statusbar">
+        <span class="ad-section-statusbar-label">联系请加群</span>
+        <div class="ad-section-statusbar-blocks" aria-hidden="true">
+          <span class="ad-section-status-block"></span>
+          <span class="ad-section-status-block"></span>
+          <span class="ad-section-status-block"></span>
+        </div>
+      </div>
+    </section>
   </MobilePageLayout>
 
   <!-- GitHub 跳转确认弹窗 -->
@@ -211,7 +240,7 @@ onUnmounted(() => {
   width: 100%;
   min-height: 100vh;
   padding: 16px 0 0 200px;
-  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+  font-family: 'SiteFont', 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
 }
 
 .desktop-icons {
@@ -260,53 +289,176 @@ onUnmounted(() => {
   font-weight: bold;
 }
 
-/* 桌面右侧广告位招租 */
+/* 桌面右侧广告位招租 - 窗体风格 */
 .desktop-ad-bar {
   position: fixed;
   right: 200px;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 10;
+  cursor: var(--cursor-pointer, pointer);
+  display: flex;
+  flex-direction: column;
+  background: #96f2e2;
+  border: 2px solid #4B28C6;
+  padding: 4px 4px 0;
+  gap: 4px;
+  box-shadow: 3px 3px rgba(75, 40, 198, 0.3);
+  min-width: clamp(100px, 12vw, 200px);
+}
+
+/* 桌面广告位标题栏 */
+.desktop-ad-bar .ad-titlebar {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 0.6vw, 10px);
+  padding: clamp(6px, 0.8vw, 12px) clamp(6px, 0.8vw, 14px);
+  background: linear-gradient(180deg, #eecfed, #e5b8e5);
+  border: 2px solid #4B28C6;
+}
+
+/* 标题栏紫色方块 */
+.desktop-ad-bar .ad-titlebar .ad-square {
+  width: clamp(12px, 1.2vw, 20px);
+  height: clamp(12px, 1.2vw, 20px);
+  background: #4b28c6;
+  border: 2px solid #3a1fa0;
+  flex-shrink: 0;
+}
+
+/* 标题栏文字 */
+.desktop-ad-bar .ad-titlebar .ad-label {
+  font-family: 'SiteFont', 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+  font-size: clamp(12px, 1.2vw, 18px);
+  font-weight: 600;
+  color: #4B28C6;
+  white-space: nowrap;
+}
+
+/* 桌面广告位内容区 */
+.desktop-ad-bar .ad-body {
+  background: #fff;
+  border: 2px solid #4B28C6;
+  padding: clamp(12px, 1.5vw, 24px) clamp(6px, 0.8vw, 14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(60px, 8vw, 120px);
+}
+
+.desktop-ad-bar .ad-body span {
+  font-family: 'SiteFont', 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+  font-size: clamp(12px, 1.2vw, 18px);
+  font-weight: bold;
+  color: #4B28C6;
   writing-mode: vertical-lr;
-  padding: 16px 8px;
-  background: #C0C0C0;
-  border: 2px solid;
-  border-color: #FFF #808080 #808080 #FFF;
-  text-align: center;
-  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
-  font-size: 14px;
-  color: #4B28C6;
-  cursor: var(--cursor-pointer, pointer);
-  z-index: 10;
-  letter-spacing: 4px;
+  letter-spacing: clamp(3px, 0.5vw, 8px);
 }
 
+/* 桌面广告位 hover 效果 */
 .desktop-ad-bar:hover {
-  background: #AAA;
-  border-color: #808080 #FFF #FFF #808080;
+  background: #d4f0e8;
 }
 
-.ad-bar {
-  position: fixed;
-  bottom: 140px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 24px);
-  max-width: 456px;
-  padding: 6px 0;
-  background: #C0C0C0;
-  border: 2px solid;
-  border-color: #FFF #808080 #808080 #FFF;
-  text-align: center;
-  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
-  font-size: 12px;
+.desktop-ad-bar:hover .ad-titlebar {
+  background: linear-gradient(180deg, #e0c0e0, #d4a8d4);
+}
+
+/* 手机广告位 - 与 WelcomeWidget/AppPanel 同款窗体风格 */
+.ad-section {
+  border: 2px solid #4B28C6;
+  background: #fff;
+  box-shadow: 4px 4px rgba(75, 40, 198, 0.25);
+  margin: 12px;
+}
+
+.ad-section-titlebar {
+  background: linear-gradient(180deg, #eecfed, #e5b8e5);
+  border-bottom: 2px solid #4B28C6;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.ad-section-titlebar-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ad-section-icon {
+  width: 14px;
+  height: 14px;
+  background: #4b28c6;
+  display: inline-block;
+  flex: none;
+}
+
+.ad-section-title {
+  font-family: 'SiteFont', 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
   color: #4B28C6;
-  cursor: var(--cursor-pointer, pointer);
-  z-index: 10;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.ad-bar:hover {
-  background: #AAA;
-  border-color: #808080 #FFF #FFF #808080;
+.ad-section-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 2.5vw, 16px);
+  padding: clamp(12px, 3vw, 24px) clamp(16px, 4vw, 32px);
+  min-height: clamp(40px, 8vw, 64px);
+}
+
+.ad-section-body span {
+  font-family: 'SiteFont', 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+  font-size: clamp(13px, 3.5vw, 18px);
+  font-weight: bold;
+  color: #4B28C6;
+  letter-spacing: clamp(1px, 0.5vw, 3px);
+}
+
+.ad-section-body .ad-dot {
+  width: clamp(8px, 2.5vw, 14px);
+  height: clamp(8px, 2.5vw, 14px);
+  background: #4b28c6;
+  border: 1px solid #3a1fa0;
+  flex-shrink: 0;
+}
+
+.ad-section-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 8px;
+  background: #eecfed;
+  border-top: 2px solid #4B28C6;
+  min-height: 22px;
+}
+
+.ad-section-statusbar-label {
+  font-family: 'SiteFont', 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+  font-size: 11px;
+  color: #4B28C6;
+}
+
+.ad-section-statusbar-blocks {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.ad-section-status-block {
+  width: 8px;
+  height: 8px;
+  background: transparent;
+  border: 2px solid #4B28C6;
 }
 
 /* 弹窗内容样式 */
@@ -317,7 +469,7 @@ onUnmounted(() => {
   justify-content: center;
   padding: 16px;
   height: 100%;
-  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+  font-family: 'SiteFont', 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
 }
 
 .popup-text {
@@ -338,7 +490,7 @@ onUnmounted(() => {
   background: #C0C0C0;
   border: 2px solid;
   border-color: #FFF #808080 #808080 #FFF;
-  font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+  font-family: 'SiteFont', 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
   font-size: 12px;
   color: #4B28C6;
   cursor: var(--cursor-pointer, pointer);
@@ -402,5 +554,19 @@ onUnmounted(() => {
   padding: 2px 8px;
   font-size: clamp(11px, 2.8vw, 16px);
   flex-shrink: 0;
+}
+</style>
+
+<!-- 非 scoped 样式：覆盖 UI 库中前两个框的底部方块，与第三个框（广告位）一致 -->
+<style>
+.xenon-status-block {
+  width: 8px !important;
+  height: 8px !important;
+  background: transparent !important;
+  border: 2px solid #4B28C6 !important;
+}
+
+.xenon-window-statusbar-blocks {
+  gap: 3px !important;
 }
 </style>

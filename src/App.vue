@@ -14,11 +14,21 @@ import BackgroundSwitcher from './components/BackgroundSwitcher.vue'
 </template>
 
 <style>
-/* 全局样式重置 */
+/* 注册自定义字体 */
+@font-face {
+  font-family: 'SiteFont';
+  src: url('./assets/fonts/font.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 全局样式重置 + 字体设置 */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'SiteFont', 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
 }
 
 html, body {
